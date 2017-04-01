@@ -4,11 +4,11 @@ from random import random
 from random import sample
 
 import matplotlib as mpl
+
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 from music import Sound
 from miditime.miditime import MIDITime
-
-mpl.use('Agg')
 
 
 def weierstrass_function(n, a, b):
