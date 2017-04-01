@@ -3,7 +3,7 @@ class Scale:
     minor_formula = [2, 1, 2, 2, 1, 2, 2]
 
     note_values = {"C": 60, "C#": 61, "D": 62, "Eb": 63, "E": 64, "F": 65, "F#": 66, "G": 67, "G#": 68, "A": 69,
-                    "Bb": 70, "B": 71}
+                   "Bb": 70, "B": 71}
 
     def __init__(self, octaves, key, scale_type):
 
@@ -22,7 +22,6 @@ class Scale:
 
 
 class Sound:
-
     def __init__(self, sound):
         self.sounds = [sound]
         self.velocity = 127
@@ -32,4 +31,3 @@ class Sound:
 
     def add_sound(self, sound):
         self.sounds.append(sound)
-

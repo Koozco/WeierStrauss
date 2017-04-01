@@ -1,21 +1,15 @@
-from math import sin
 from math import pi
+from math import sin
 from random import random
 from random import sample
-import matplotlib as mpl
 
-mpl.use('Agg')
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from music import Sound
 from miditime.miditime import MIDITime
 
+mpl.use('Agg')
 
-# todo
-# weierstrass func DONE
-# note sound DONE
-# notes on plots
-# mutations
-# names!
 
 def weierstrass_function(n, a, b):
     def function(x):
@@ -44,7 +38,7 @@ def draw_function(a, b, draw, count):
         plt.axis([0, 3.15 * 2, min(ys) - 0.1, max(ys) + 0.1])
         plt.savefig("chosen_notes.png")
 
-        ##todo fix plt.plot()
+        # todo plot label, file names
         fig = plt.figure()
         ax = fig.add_subplot(111)
         ax.plot(ys)
@@ -60,8 +54,6 @@ def draw_function(a, b, draw, count):
     return {"values": n2, "max": max_val, "min": min_val}
 
 
-# todo add scaletype, first sound
-# todo add axis labels
 def generate_riff(scale, values, max_val, min_val):
     # transform range from (min, max) to (0, num_of_notes)
     # and then map func values to notes
@@ -70,9 +62,9 @@ def generate_riff(scale, values, max_val, min_val):
     riff = [Sound(scale.notes[int((y - min_val) * transform)]) for y in values]
     return riff
 
-def mutate(riff, kind):
 
-    #mutation probabilites
+def mutate(riff, kind):
+    # mutation probabilites
     elongation_pro = 0.15
     chord_pro = 0.25
     change_pro = 0.05
@@ -97,7 +89,6 @@ def mutate(riff, kind):
         for s in sound.sounds:
             s += change
 
-
     r = random()
     if r <= riff_reverse_pro:
         riff_reversion()
@@ -113,7 +104,6 @@ def mutate(riff, kind):
             mutate_to_chord(s)
 
 
-
 def generate_midi(sounds):
     mymidi = MIDITime(360, 'myfile.mid')
 
@@ -122,15 +112,6 @@ def generate_midi(sounds):
         for n in s.sounds:
             midinotes.append([s.time, n, s.velocity, s.duration])
             print(s.time, n, s.velocity, s.duration)
-
-    # midinotes = [[1.5 * i, notes[i], 127, 1] for i, j in enumerate(notes)]
-    # for i,j in enumerate(notes):
-    #  midinotes.append(4*i, notes[i], 127)
-
-    # midinotes = [
-    #    [0, 60, 127, 3],  #At 0 beats (the start), Middle C with velocity 127, for 3 beats
-    #    [10, 61, 127, 4]  #At 10 beats (12 seconds from start), C#5 with velocity 127, for 4 beats
-    # ]
 
     # Add a track with those notes
     mymidi.add_track(midinotes)
