@@ -70,7 +70,7 @@ def main():
     scale = Scale(octaves, key, kind)
     main_riff = generate_riff(scale, pre_data["values"],
                               pre_data["max"], pre_data["min"])
-    #create copies of main riff to modified
+    # create copies of main riff to modified
     riffs = [main_riff]
     for i in range(0, riffs_num - 1):
         new_riff = copy.deepcopy(main_riff)

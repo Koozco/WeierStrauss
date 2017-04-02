@@ -8,7 +8,7 @@ from miditime.miditime import MIDITime
 import matplotlib as mpl
 
 mpl.use('Agg')
-#has to be imported after mpl.use('Agg')
+# has to be imported after mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 
@@ -23,7 +23,7 @@ def weierstrass_function(n, a, b):
     return function
 
 
-#draw function and select points to be tranformed into notes
+# draw function and select points to be tranformed into notes
 def draw_function(a, b, draw, count, folder):
     d = 10000
     weier = weierstrass_function(30, a, b)
