@@ -8,6 +8,7 @@ from miditime.miditime import MIDITime
 import matplotlib as mpl
 
 mpl.use('Agg')
+#has to be imported after mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 
@@ -22,6 +23,7 @@ def weierstrass_function(n, a, b):
     return function
 
 
+#draw function and select points to be tranformed into notes
 def draw_function(a, b, draw, count, folder):
     d = 10000
     weier = weierstrass_function(30, a, b)
@@ -65,6 +67,7 @@ def mutate(riff, kind):
     chord_pro = 0.25
     change_pro = 0.05
     riff_reverse_pro = 0.1
+    # mutation probabilites
 
     def riff_reversion():
         riff.reverse()
