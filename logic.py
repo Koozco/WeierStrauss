@@ -6,7 +6,6 @@ from music import Sound
 from miditime.miditime import MIDITime
 
 import matplotlib as mpl
-import sys
 
 mpl.use('Agg')
 import matplotlib.pyplot as plt

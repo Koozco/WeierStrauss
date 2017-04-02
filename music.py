@@ -2,12 +2,14 @@ class Scale:
     major_formula = [2, 2, 1, 2, 2, 2, 1]
     minor_formula = [2, 1, 2, 2, 1, 2, 2]
 
-    note_values = {"C": 60, "C#": 61, "D": 62, "Eb": 63, "E": 64, "F": 65, "F#": 66, "G": 67, "G#": 68, "A": 69,
-                   "Bb": 70, "B": 71}
+    note_values = {"C": 60, "C#": 61, "D": 62, "Eb": 63,
+                   "E": 64, "F": 65, "F#": 66, "G": 67,
+                   "G#": 68, "A": 69, "Bb": 70, "B": 71}
 
     def __init__(self, octaves, key, scale_type):
 
-        self.formula = self.major_formula if scale_type == "major" else self.minor_formula
+        self.formula = self.major_formula \
+            if scale_type == "major" else self.minor_formula
         self.key_note = self.note_values[key]
         self.notes = [self.key_note]
 
