@@ -2,13 +2,14 @@ from math import pi
 from math import sin
 from random import random
 from random import sample
+from music import Sound
+from miditime.miditime import MIDITime
 
 import matplotlib as mpl
+import sys
 
 mpl.use('Agg')
 import matplotlib.pyplot as plt
-from music import Sound
-from miditime.miditime import MIDITime
 
 
 def weierstrass_function(n, a, b):
@@ -22,7 +23,7 @@ def weierstrass_function(n, a, b):
     return function
 
 
-def draw_function(a, b, draw, count):
+def draw_function(a, b, draw, count, folder):
     d = 10000
     weier = weierstrass_function(30, a, b)
     xs = [2 * pi / d * k for k in range(1, d + 1)]
@@ -34,23 +35,19 @@ def draw_function(a, b, draw, count):
     n2 = [ys[k] for k in points]
 
     if draw:
+        dest = ''.join(folder)
         plt.plot(n1, n2, 'ro')
         plt.axis([0, 3.15 * 2, min(ys) - 0.1, max(ys) + 0.1])
-        plt.savefig("chosen_notes.png")
+        plt.savefig(dest + 'chosen_notes.png')
 
-        # todo plot label, file names
         fig = plt.figure()
         ax = fig.add_subplot(111)
         ax.plot(ys)
-        fig.savefig('graph4.png')
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-        ax.plot(n2)
-        fig.savefig('hmm2.png')
+        fig.savefig(dest + 'function_graph.png')
 
     min_val = min(ys)
     max_val = max(ys)
-    # return choosen points and range of values
+    # return chosen points and range of values
     return {"values": n2, "max": max_val, "min": min_val}
 
 
@@ -104,8 +101,8 @@ def mutate(riff, kind):
             mutate_to_chord(s)
 
 
-def generate_midi(sounds):
-    mymidi = MIDITime(360, 'myfile.mid')
+def generate_midi(sounds, bpm, dest):
+    mymidi = MIDITime(bpm, dest)
 
     midinotes = []
     for s in sounds:
