@@ -2,6 +2,9 @@ import argparse
 import copy
 from logic import *
 from music import *
+from sys import platform
+from os import path
+from os import makedirs
 
 
 def parse():
@@ -11,7 +14,7 @@ def parse():
     parser.add_argument("-b", default=2, type=float,
                         help="The 'b' param of Weierstrass function. Default: 2.")
     parser.add_argument("-p", "--plot", default="draw", choices=["no-draw", "draw"],
-                        help ="Draw plot of generated function. Default draw.")
+                        help="Draw plot of generated function. Default draw.")
     parser.add_argument("-c", default=16, type=int,
                         help="Count of sounds in one riff. Default: 16.")
     parser.add_argument("--octaves", default=1, choices=[1, 3, 5], type=int,
@@ -33,7 +36,7 @@ def parse():
                         help="Destination of output file. Default myfile.mid")
     args = parser.parse_args()
     global a, b, draw, count, octaves, key, kind, \
-        riffs_num, iterations, bpm, interval, dest, folder
+        riffs_num, iterations, bpm, interval, dest
     a = args.a
     b = args.b
     draw = args.plot == "draw"
@@ -46,15 +49,23 @@ def parse():
     bpm = args.bpm
     interval = args.interval
     dest = args.output
-    folder = []
-    for p in dest.split('/')[:-1]:
-        folder += p
-        folder += "/"
+    parse_path(dest)
+
+
+def parse_path(dest):
+    global directory, name
+    slash = "\\" if platform == "win" in platform.lower() else "/"
+    name = dest.split(slash)[-1]
+    directory = path.dirname(dest)
+    if directory != '' and not  path.exists(directory):
+        makedirs(directory)
+    if directory != '':
+        directory += slash
 
 
 def main():
     parse()
-    pre_data = draw_function(a, b, draw, count, folder)
+    pre_data = draw_function(a, b, draw, count, directory)
     scale = Scale(octaves, key, kind)
     main_riff = generate_riff(scale, pre_data["values"],
                               pre_data["max"], pre_data["min"])
@@ -76,7 +87,7 @@ def main():
         n.time = interval * i
         n.duration += n.elongation
 
-    generate_midi(sounds, bpm, dest)
+    generate_midi(sounds, bpm, directory, name)
 
 
 if __name__ == '__main__':

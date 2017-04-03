@@ -36,15 +36,15 @@ def draw_function(a, b, draw, count, folder):
     n2 = [ys[k] for k in points]
 
     if draw:
-        dest = ''.join(folder)
+
         plt.plot(n1, n2, 'ro')
         plt.axis([0, 3.15 * 2, min(ys) - 0.1, max(ys) + 0.1])
-        plt.savefig(dest + 'chosen_notes.png')
+        plt.savefig(folder + 'chosen_notes.png')
 
         fig = plt.figure()
         ax = fig.add_subplot(111)
         ax.plot(ys)
-        fig.savefig(dest + 'function_graph.png')
+        fig.savefig(folder + 'function_graph.png')
 
     min_val = min(ys)
     max_val = max(ys)
@@ -103,8 +103,8 @@ def mutate(riff, kind):
             mutate_to_chord(s)
 
 
-def generate_midi(sounds, bpm, dest):
-    mymidi = MIDITime(bpm, dest)
+def generate_midi(sounds, bpm, folder, name):
+    mymidi = MIDITime(bpm, folder + name)
 
     midinotes = []
     for s in sounds:
