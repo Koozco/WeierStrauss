@@ -64,9 +64,9 @@ def generate_riff(scale, values, max_val, min_val):
 def mutate(riff, kind):
     # mutation probabilites
     elongation_pro = 0.15
-    chord_pro = 0.25
-    change_pro = 0.05
-    riff_reverse_pro = 0.1
+    chord_pro = 0.1
+    change_pro = 0.15
+    riff_reverse_pro = 0.2
     # mutation probabilites
 
     def riff_reversion():
